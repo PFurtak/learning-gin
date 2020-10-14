@@ -8,6 +8,7 @@ import (
 	"github.com/pfurtak/learning-gin/controller"
 	"github.com/pfurtak/learning-gin/middleware"
 	"github.com/pfurtak/learning-gin/service"
+	gindump "github.com/tpkeeper/gin-dump"
 )
 
 var (
@@ -26,7 +27,7 @@ func main() {
 
 	server := gin.New()
 
-	server.Use(gin.Recovery(), middleware.Logger())
+	server.Use(gin.Recovery(), middleware.Logger(), middleware.BasicAuth(), gindump.Dump())
 
 	server.GET("/videos", func(ctx *gin.Context) {
 		ctx.JSON(200, videoController.FindAll())
